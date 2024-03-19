@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import personService from './services/persons'
+import Notification from './components/Notification'
 
 const Person = ({ person, remove }) => {
   return (
@@ -58,6 +59,8 @@ const App = () => {
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [searchName, setSearchName] = useState('')
+  const [successMessage, setsuccessMessage] = useState(null)
+  const [errorMessage, setErrorMessage] = useState(null)
 
   useEffect(() => {
     personService
@@ -106,6 +109,12 @@ const App = () => {
           setPersons(persons.map(note => note.id !== existingID ? note : updatedPerson))
           setNewName('');
           setNewNumber('');
+        }).catch(error => {
+          setErrorMessage(`Information '${newName}' has already been removed from server`)
+          setTimeout(() => {
+            setErrorMessage(null)
+          }, 5000)
+          setPersons(persons.filter(note => note.id !== existingID))
         })
       }
     } else {
@@ -113,6 +122,10 @@ const App = () => {
       .create(personObject)
       .then(returnedPerson => {
         setPersons(persons.concat(returnedPerson))
+        setsuccessMessage(`Added ${newName}`)
+        setTimeout(() => {
+          setsuccessMessage(null)
+        }, 5000)
         setNewName('');
         setNewNumber('');
       }) 
@@ -154,6 +167,8 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+
+      <Notification successMessage={successMessage} errorMessage={errorMessage} />
 
       <Filter inputValue={searchName} onChange={handleSearch} />
 
