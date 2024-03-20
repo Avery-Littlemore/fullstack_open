@@ -1,6 +1,6 @@
 import axios from 'axios'
 const baseUrl = 'https://studies.cs.helsinki.fi/restcountries/'
-const weatherAPI = '78e1570fcd4527d5820dd4547f4452f0'
+import weatherAPI from './weatherAPI'
 
 const getFiltered = (searchName) => {
   const request = axios.get(`${baseUrl}/api/all`)
