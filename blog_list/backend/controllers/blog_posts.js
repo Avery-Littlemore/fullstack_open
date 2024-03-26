@@ -1,10 +1,9 @@
 const blogsRouter = require('express').Router()
 const Post = require('../models/post')
 
-blogsRouter.get('/', (request, response) => {
-  Post.find({}).then(posts => {
-    response.json(posts)
-  })
+blogsRouter.get('/', async (request, response) => {
+  const posts = await Post.find({})
+  response.json(posts)
 })
 
 blogsRouter.get('/:id', (request, response, next) => {
@@ -31,20 +30,17 @@ blogsRouter.post('/', (request, response, next) => {
 
   post.save()
     .then(savedPost => {
-      response.json(savedPost)
+      response.status(201).json(savedPost)
     })
     .catch(error => next(error))
 })
 
-blogsRouter.delete('/:id', (request, response, next) => {
-  Post.findByIdAndDelete(request.params.id)
-    .then(() => {
-      response.status(204).end()
-    })
-    .catch(error => next(error))
+blogsRouter.delete('/:id', async (request, response, next) => {
+  await Post.findByIdAndDelete(request.params.id)
+  response.status(204).end()
 })
 
-blogsRouter.put('/:id', (request, response, next) => {
+blogsRouter.put('/:id', async (request, response, next) => {
   const body = request.body
 
   const post = {
@@ -54,11 +50,15 @@ blogsRouter.put('/:id', (request, response, next) => {
     likes: body.likes
   }
 
-  Post.findByIdAndUpdate(request.params.id, post, { new: true })
-    .then(updatedPost => {
-      response.json(updatedPost)
-    })
-    .catch(error => next(error))
+  await Post.findByIdAndUpdate(request.params.id, post, { new: true })
+  response.json(post)
+
+
+  // Post.findByIdAndUpdate(request.params.id, post, { new: true })
+  //   .then(updatedPost => {
+  //     response.json(updatedPost)
+  //   })
+  //   .catch(error => next(error))
 })
 
 module.exports = blogsRouter
