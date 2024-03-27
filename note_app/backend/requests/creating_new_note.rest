@@ -4,7 +4,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvb
 
 
 {
-  "content": "Adding with ID",
+  "content": "Adding another new note",
   "important": true,
   "userId": "6602e1750604a3a1b9a58ccf"
 }
