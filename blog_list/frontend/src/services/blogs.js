@@ -27,7 +27,7 @@ const getUsers = async () => {
 
 const addLike = async ({ title, author, url, likes, id, user }) => {
   const updatedPost = {
-    title, 
+    title,
     author,
     url,
     likes: likes + 1,

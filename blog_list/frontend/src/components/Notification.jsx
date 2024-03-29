@@ -1,7 +1,7 @@
 const Notification = ({ successMessage, errorMessage }) => {
-  let className;
-  let message;
-  
+  let className
+  let message
+
   if (successMessage === null && errorMessage === null) {
     return null
   } else if (successMessage) {

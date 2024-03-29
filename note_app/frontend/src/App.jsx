@@ -28,8 +28,8 @@ const App = () => {
   const [newNote, setNewNote] = useState('')
   const [showAll, setShowAll] = useState(true)
   const [errorMessage, setErrorMessage] = useState(null)
-  const [username, setUsername] = useState('') 
-  const [password, setPassword] = useState('') 
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
   const [loginVisible, setLoginVisible] = useState(false)
 
@@ -73,7 +73,7 @@ const App = () => {
   const toggleImportanceOf = id => {
     const note = notes.find(n => n.id === id)
     const changedNote = { ...note, important: !note.important }
-    
+
     noteService
       .update(id, changedNote)
       .then(returnedNote => {
@@ -92,7 +92,7 @@ const App = () => {
 
   const handleLogin = async (event) => {
     event.preventDefault()
-    
+
     try {
       const user = await loginService.login({
         username, password,
@@ -100,7 +100,7 @@ const App = () => {
 
       window.localStorage.setItem(
         'loggedNoteappUser', JSON.stringify(user)
-      ) 
+      )
 
       noteService.setToken(user.token)
       setUser(user)
@@ -147,7 +147,7 @@ const App = () => {
   return (
     <div>
       <h1>Notes</h1>
-      
+
       <Notification message={errorMessage} />
 
       {user === null ?
@@ -172,9 +172,9 @@ const App = () => {
       </div>
       <ul>
         {notesToShow.map(note =>
-          <Note 
+          <Note
             key={note.id}
-            note={note}  
+            note={note}
             toggleImportance={() => toggleImportanceOf(note.id)}
           />
         )}
