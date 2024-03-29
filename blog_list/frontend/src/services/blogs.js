@@ -20,9 +20,26 @@ const create = async newObject => {
   return response.data
 }
 
-const getUserID = () => {
-  const request = axios.get('/api/users')
-  return request.then(response => response.data)
+const getUsers = async () => {
+  const response = await axios.get('/api/users')
+  return response.data
 }
 
-export default { getAll, setToken, create, getUserID }
+const addLike = async ({ title, author, url, likes, id, user }) => {
+  const updatedPost = {
+    title, 
+    author,
+    url,
+    likes: likes + 1,
+    userId: user,
+  }
+
+  await axios.put(`/api/blogs/${id}`, updatedPost)
+  return updatedPost
+}
+
+const deletePost = async ({ id }) => {
+  await axios.delete(`/api/blogs/${id}`)
+}
+
+export default { getAll, setToken, create, getUsers, addLike, deletePost }
