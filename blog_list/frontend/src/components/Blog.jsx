@@ -46,7 +46,6 @@ const Blog = ({ blog, addOneLike, removePost, user, allUsers }) => {
   }
 
   if (user && allUsers) {
-    console.log(user.name)
     const posterNameFromId = allUsers.filter(user => user.id === blog.user)[0].name
     return posterNameFromId === user.name ? renderWithRemove(posterNameFromId) : renderWithoutRemove(posterNameFromId)
   }
