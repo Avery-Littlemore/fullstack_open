@@ -20,7 +20,7 @@ const Blog = ({ blog, addOneLike, removePost, user, allUsers }) => {
 
   const renderWithRemove = (posterNameFromId) => {
     return (
-      <div style={blogStyle}>
+      <div class='blog' style={blogStyle}>
         {blog.title} {blog.author} <button style={hideWhenVisible} onClick={toggleVisibility}>view</button><button style={showWhenVisible} onClick={toggleVisibility}>hide</button>
         <div style={showWhenVisible}>
           {blog.url}<br/>
@@ -34,7 +34,7 @@ const Blog = ({ blog, addOneLike, removePost, user, allUsers }) => {
 
   const renderWithoutRemove = (posterNameFromId) => {
     return (
-      <div style={blogStyle}>
+      <div class='blog' style={blogStyle}>
         {blog.title} {blog.author} <button style={hideWhenVisible} onClick={toggleVisibility}>view</button><button style={showWhenVisible} onClick={toggleVisibility}>hide</button>
         <div style={showWhenVisible}>
           {blog.url}<br/>

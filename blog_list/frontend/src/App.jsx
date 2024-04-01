@@ -137,6 +137,7 @@ const App = () => {
           <div>
           username
             <input
+              id='username'
               type="text"
               value={username}
               name="Username"
@@ -146,13 +147,14 @@ const App = () => {
           <div>
             password
             <input
+              id='password'
               type="password"
               value={password}
               name="Password"
               onChange={({ target }) => setPassword(target.value)}
             />
           </div>
-          <button type="submit">login</button>
+          <button id='login-button' type="submit">login</button>
         </form>
       </div>
     )
@@ -165,7 +167,7 @@ const App = () => {
       <h2>blogs</h2>
       <p>{user.name} logged in <button onClick={logout}>logout</button></p>
       {createBlogForm()}
-      {blogs.map(blog =>
+      {blogs.sort((a, b) => b.likes - a.likes).map(blog =>
         <Blog key={blog.id} blog={blog} addOneLike={addOneLike} removePost={removePost} user={user} allUsers={allUsers} />
       )}
     </div>
