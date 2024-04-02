@@ -5,6 +5,7 @@ import {
   useParams, useNavigate,
   useMatch
 } from 'react-router-dom'
+import  { useField } from './hooks'
 
 const Heading = ({ text }) => (
   <h1>{text}</h1>
@@ -27,40 +28,47 @@ const Home = ({ anecdotes }) => (
 
 const Create = ({ anecdotes, setAnecdotes, setNotification }) => {
   const navigate = useNavigate()
-
-  const [content, setContent] = useState('') 
-  const [author, setAuthor] = useState('') 
-  const [url, setUrl] = useState('') 
+  const content = useField('text')
+  const author = useField('text')
+  const url = useField('text')
 
   const onSubmit = (event) => {
     event.preventDefault()
     const id = Math.max(...anecdotes.map(anecdote => Number(anecdote.id))) + 1
-    setAnecdotes(anecdotes.concat({ id, content, author, url }))
-    setNotification(content)
+    const newAnecdote = {
+      id,
+      content: content.value,
+      author: author.value,
+      url: url.value,
+    }
+
+    setAnecdotes(anecdotes.concat(newAnecdote))
+    setNotification(content.value)
     navigate('/')
+  }
+
+  const onReset = (event) => {
+    content.onReset()
+    author.onReset()
+    url.onReset()
   }
 
   return (
     <div>
       <h2>Create a new anecdote</h2>
 
-      <form onSubmit={onSubmit}>
-        content: <input
-          id='content'
-          value={content}
-          onChange={event => setContent(event.target.value)}
-        /><br/>
-        author: <input
-          id='author'
-          value={author}
-          onChange={event => setAuthor(event.target.value)}
-        /><br/>
-        url for more info: <input
-          id='url'
-          value={url}
-          onChange={event => setUrl(event.target.value)}
-        /><br/>
+      <form onSubmit={onSubmit} onReset={onReset}>
+        content:
+        <input {...content} /> 
+        <br/>
+        author:
+        <input {...author} />
+        <br/>
+        url for more info:
+        <input {...url} />
+        <br/>
         <button type="submit">create</button>
+        <button type="reset">reset</button>
       </form>
     </div>
   )
@@ -145,9 +153,7 @@ const App = () => {
 
   const [notification, setNotification] = useState(null)
 
-  const padding = {
-    padding: 5
-  }
+  const padding = { padding: 5 }
 
   return (
     <Router>
