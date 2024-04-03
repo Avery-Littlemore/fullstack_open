@@ -70,8 +70,10 @@ const SingleResult = ({ countries, weather }) => {
 const DisplayResults = ({ countries, showOption, weather }) => {
   let message;
 
-  if (countries === null || countries.length === 0) {
+  if (countries === null) {
     message = ''
+  } else if (countries.length === 0) {
+    message = 'not found...'
   } else if (countries.length > 10) {
     message = 'Too many matches, specify another filter'
   } else if (countries.length === 1) {

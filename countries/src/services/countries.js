@@ -1,4 +1,4 @@
-import axios from '../../../noteApp_coursework_frontend/node_modules/axios'
+import axios from 'axios'
 const baseUrl = 'https://studies.cs.helsinki.fi/restcountries/'
 import weatherAPI from './weatherAPI'
 
